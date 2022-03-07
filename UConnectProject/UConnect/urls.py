@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from carpooling import views
-
-
+from main import views as mainViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('', mainViews.home),
 ]

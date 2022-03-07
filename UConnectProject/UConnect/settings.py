@@ -20,14 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(k46_p#na5d4my0!f*&c8k3*7&2f$#j)gy-et6&)j$^17+53ej'
+SECRET_KEY = 'django-insecure-5!g2+7t$8e=1$h%!(buj6qn8enwm617_8%frt$7xb9v_me#3m#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyBIM3fiOZSv6nQJDI8ViWikFYt-5yokHk0'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,8 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_google_maps',
-    'carpooling',
+    'main',
 ]
 
 MIDDLEWARE = [
