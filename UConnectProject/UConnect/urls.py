@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views as mainViews
+from main.views import showmap,showroute
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home),
+    path('<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
+    path('setroute',showmap,name='showmap'),
 ]
