@@ -1,3 +1,4 @@
+from pickletools import long1
 from django.db import models
 
 # Create your models here.
@@ -21,3 +22,11 @@ class Car(models.Model):
     Placa = models.CharField(max_length=6)
     color = models.CharField(max_length=20)
     url = models.URLField(blank=True)
+
+class Route(models.Model):
+    lat1 = models.FloatField()
+    long1 = models.FloatField()
+    lat2 = models.FloatField()
+    long2 = models.FloatField()
+    def data(self):
+        return [self.lat1,self.long1,self.lat2,self.long2]

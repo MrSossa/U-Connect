@@ -28,11 +28,11 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <style>
     body { margin:0; padding:0; }
-    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+    #map { position: absolute; top:1%; bottom:1%; right:1%; left:1%; will-change:"auto";}
   </style>
 </head>
 <body>
-    <div id="map" width = "100px"></div>
+    <div id="map" ></div>
 
 
     <!-- Script to create map -->
@@ -45,7 +45,7 @@
         }).addTo(map);
 
         var count=0;
-        
+        var gcs = L.esri.Geocoding.geocodeService();
         markers = [];
         data=[];
 
@@ -62,6 +62,7 @@
         map.on('click', (e)=>{
             var popupContent = '<button onclick=clearMarker('+count+')>Clear Marker</button>';
             count+=1;
+            /*
             myMarker = L.marker(e.latlng).bindPopup(popupContent);
             myMarker._id = count;
             myMarker.addTo(map);
@@ -69,22 +70,21 @@
             markers.push(myMarker);
             data.push(e.latlng['lat']);
             data.push(e.latlng['lng']);
-            /*
+            */
             gcs.reverse().latlng(e.latlng).run((err, res)=>{
                 if(err) return;
                 k=count.toString()
                 L.marker(res.latlng).addTo(map).bindPopup(res.address.Match_addr).openPopup();
-                data.push(res.latlng['lat']);
-                data.push(res.latlng['lng']);
-
+                data.push([res.latlng['lat'],res.latlng['lng']]);
                 //data[k+'lat']=res.latlng['lat'];
                 //data[k+'lon']=res.latlng['lng'];
-                /*if(count==2){
-                    const route_url='http://localhost:8000/'+data['1lat']+','+data['1lon']+','+data['2lat']+','+data['2lon'];
+                if(count==2){
+                    const route_url='http://localhost:8000/setroute/'+data[0][0]+','+data[0][1]+','+data[1][0]+','+data[1][1];
                     count=0;
+                    console.log(data);
                     window.location.replace(route_url);
                 }
-            });*/
+            });
             
         });
 
