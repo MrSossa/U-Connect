@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views as mainViews
-from main.views import showmap,showroute
+from main.views import showmap,showroute,showRoutes
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -24,8 +24,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home),
-    path('<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
+    path('setroute/<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
     path('setroute',showmap,name='showmap'),
+    path('showroutes',showRoutes,name='showroutes'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
