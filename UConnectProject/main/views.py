@@ -12,10 +12,6 @@ def showmap(request):
 def home(request):
     return render(request, 'home.html')
 
-<<<<<<< HEAD
-def about(request):
-    return render(request, 'about.html')    
-=======
 def showroute(request,lat1,long1,lat2,long2):
     figure = folium.Figure()
     lat1,long1,lat2,long2=float(lat1),float(long1),float(lat2),float(long2)
@@ -30,4 +26,3 @@ def showroute(request,lat1,long1,lat2,long2):
     figure.render()
     context={'map':figure}
     return render(request,'showroute.html',context)
->>>>>>> d67c80dffdf3129615cfc16296cac64457e5a531

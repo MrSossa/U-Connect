@@ -16,24 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views as mainViews
-<<<<<<< HEAD
-from account import views as accViews
+from main.views import showmap,showroute
 from django.conf.urls.static import static
 from django.conf import settings
 
-=======
-from main.views import showmap,showroute
->>>>>>> d67c80dffdf3129615cfc16296cac64457e5a531
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home),
-<<<<<<< HEAD
-    path('about/', mainViews.about),
-=======
     path('<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
     path('setroute',showmap,name='showmap'),
->>>>>>> d67c80dffdf3129615cfc16296cac64457e5a531
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
