@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,16 +18,44 @@
             border: 0px;
             box-sizing: border-box;
         }
+
+        #logo {
+            margin-left: 20px;
+            width: 120px;
+        }
+
+        #container {
+            margin-top: 10px;
+            background-color: rgba(42, 182, 218, 0.39);
+        }
+
+        .card-border {
+            border: solid 2px white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all ease-out 0.2s;
+            border-color: rgb(79, 136, 182);
+        }
+
+        .card-border:hover {
+            transform: scale(1.05);
+        }
+
+        #navbar{
+            border: solid 4px white;
+            border-radius: 20px;           
+            background-color: rgb(79, 136, 182);
+        }
+
     </style>
 
-    <nav class="navbar navbar-expand-sm navbar-dark bg-danger">
-        <a class="navbar-brand" href="#">
-            <img src="/media/Logo/images/uConn_dEV6EmB.jpeg" width="120">
+    <nav class="navbar navbar-expand-sm navbar-light" id="navbar">
+        <a class="navbar-brand" href="#" id="logo">
+            <img class="card-img-top " src="../../media/Logo/uConn.jpeg" alt="Card image cap">
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -42,25 +70,33 @@
     </nav>
 
     <section>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card" style="width: 22rem;">
-                    <img class="card-img-center" src="/media/Logo/images/route.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Add Route</h5>
-                        <p class="card-text">Click two points on the map to aggregate the shortest route between them to
-                            the database</p>
-                        <a href="./setroute" target="_blank" class="btn btn-primary">Click Here</a>
+        <div id="setNshow">
+            <div class="container-md p-5" id="containerSetNshow">
+                <div class="row pt-5">
+                    <div>
+                        <h3 class="text-center pb-2 pt-2 h2">
+                            Add Routes and visualize them
+                        </h3>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card" style="width: 22rem;">
-                    <img class="card-img-top" src="/media/Logo/images/map.png" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Show Map</h5>
-                        <p class="card-text">Visualize the added routes</p>
-                        <a href="./showroutes" target="_blank" class="btn btn-primary">Click Here</a>
+                    <div class="col-sm">
+                        <div class="card w-100 card-border mb-5 text-center" style="width: 18rem;">
+                            <img class="card-img-top " src="/media/Cards/route.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Add Route</h5>
+                                <p class="card-text">Click two points on the map to aggregate a route.</p>
+                                <a href="./setroute" target="_blank" class="btn btn-primary" id="cardButton">Click Here</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm">
+                        <div class="card w-100 card-border mb-5 text-center" style="width: 18rem;">
+                            <img class="card-img-top" src="/media/Cards/map.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">Show Map</h5>
+                                <p class="card-text">Visualize the added routes</p>
+                                <a href="./showroutes" target="_blank" class="btn btn-primary" id="cardButton">Click Here</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
