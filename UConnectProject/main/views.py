@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from main.models import Route
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from .models import *
 
 import folium
 from . import getroute
@@ -9,6 +12,17 @@ from . import getroute
 
 def home(request):
     return render(request, 'home.html')
+
+def profile(request):
+    return render(request, 'profile.html')
+
+def postt(request):
+    postT = Post.objects.all()
+    context = {'post' : postT}
+    return render(request, 'posts.html')
+
+def register(request):
+    return render(request,'login.html')
 
 def showmap(request):
     return render(request,'showmap.html')

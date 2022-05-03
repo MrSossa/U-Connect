@@ -1,0 +1,161 @@
+<html>
+
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Radio+Canada:wght@300;600;700&display=swap');
+        * {
+            box-sizing: content-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Radio Canada', sans-serif;
+        }
+        
+         :root {
+            --primary-color: rgb(79, 136, 182);
+        }
+        
+        body {
+            max-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        main {
+            display: flex;
+            flex: 1 1 100%;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        footer>.row {
+            --bs-gutter-x: 0!important;
+            padding: 8px 0px!important;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: var(--primary-color);
+        }
+        
+        footer span {
+            width: max-content!important;
+            color: white;
+        }
+        
+        .container {
+            border: 1px solid whitesmoke;
+            padding: 1rem 2rem;
+            min-height: 300px;
+            border-radius: 10px;
+            background-color: rgba(79, 136, 182, 0.5);
+            box-shadow: 2px 0px 3px #ddd;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form {
+            display: flex;
+            flex: 1 1 100%;
+            gap: 1rem;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            outline: none;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding: 12px 12px;
+            padding-left: 30px;
+            min-width: 240px;
+        }
+        
+        input[type="submit"] {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            outline: none;
+            padding: 10px 12px;
+            border-radius: 6px;
+        }
+        
+        input[name="username"] {
+            background-image: url("/media/icons/user.svg");
+            background-repeat: no-repeat;
+            background-size: 16px;
+            background-position: 12px 50%;
+        }
+        
+        input[name="password"] {
+            background-image: url("/media/icons/password.svg");
+            background-repeat: no-repeat;
+            background-size: 16px;
+            background-position: 12px 50%;
+        }
+        
+        label {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            color: rgb(19, 31, 131);
+            gap: 0.4rem;
+        }
+        
+        .link-group {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+        }
+        
+        .link-group a {
+            text-decoration: none;
+            color: rgb(19, 31, 131);
+            text-align: left;
+        }
+        
+        .link-group a:focus,
+        .link-group a:active,
+        .link-group a:visited {
+            color: rgb(19, 31, 131);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="login">
+            <div class="container">
+                <h1>Log In</h1>
+                <form action="/" class="form" method="POST">
+                    <div class="form-group">
+                        <label for=""> Username
+                            <input type="text" name="username" value="" placeholder="Username"/>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password
+                            <input type="password" name="password" value="" placeholder="Password"/>
+                        </label>
+                    </div>
+                    <div class="link-group">
+                        <a href="/register">I haven't an account</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="">
+                            <input type="submit" value="Log In"/>
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="row">
+            <span>U-connect  &copy; Derechos reservados. </span>
+            <span>By Jravel, KSossa & JDEche</span>
+        </div>
+    </footer>
+</body>
+
+</html>
