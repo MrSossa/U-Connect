@@ -8,6 +8,7 @@ from .models import *
 import folium
 import json
 import random
+from .forms import routesForms
 from . import getroute
 
 # Create your views here.
@@ -39,13 +40,22 @@ def register(request):
 def showmap(request):
     return render(request,'showmap.html')
 
+def createRoute(request):
+    #Se utilize form para preguntar todos los parametros de la ruta (modificar models para adaptar el ingreso de los datos)
+    #Recibir la ruta creada por context
+    #Usar metodo create routa
+    #Route.objects.create(IdOwner=random.randint(0,1000),route=route)
+  
+    if request.method == 'POST':
+        print(request.POST)
+    return render(request,'showmap.html')
 def showroute(request,lat1,long1,lat2,long2):
     figure = folium.Figure()
     lat1,long1,lat2,long2=float(lat1),float(long1),float(lat2),float(long2)
 
     route=getroute.get_route(long1,lat1,long2,lat2)
 
-    Route.objects.create(IdOwner=random.randint(0,1000),route=json.dumps(route))
+    #Route.objects.create(IdOwner=random.randint(0,1000),route=json.dumps(route))
 
     m = folium.Map(location=[(route['start_point'][0]),
                                  (route['start_point'][1])], 
@@ -55,7 +65,11 @@ def showroute(request,lat1,long1,lat2,long2):
     folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
     folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
     figure.render()
-    context={'map':figure,'route':route}
+    f = routesForms({'route':json.dumps(route)})
+    context={
+        'map':figure,
+        'form':f}
+  
     return render(request,'showroute.html',context)
 
 def generatePopPup(route):
