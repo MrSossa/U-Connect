@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Profile, Route, Post, Car
+from .models import Profile, Route, Car
 
 # Register your models here.
 
 admin.site.register(Profile)
-admin.site.register(Post)
 admin.site.register(Car)
 admin.site.register(Route)

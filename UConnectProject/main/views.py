@@ -15,6 +15,9 @@ from . import getroute
 def home(request):
     return render(request, 'home.html')
 
+def login(request):
+    return render(request,'login.html')
+
 def myRoutes(request):
     routes = Route.objects.all()
     myroutes = []
@@ -24,17 +27,6 @@ def myRoutes(request):
         'myRoutes': myroutes
     }
     return render(request, 'myRoutes.html',context=context)
-
-def profile(request):
-    return render(request, 'profile.html')
-
-def postt(request):
-    postT = Post.objects.all()
-    context = {'post' : postT}
-    return render(request, 'posts.html')
-
-def register(request):
-    return render(request,'login.html')
 
 def showmap(request):
     return render(request,'showmap.html')
