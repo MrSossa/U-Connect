@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     path('',views.home, name='home'),
+    path('myRoutes/',views.myRoutes,name='myRoutes'),
     path('profile/',views.profile,name='profile'),
     path('login/',register, name='register'),
     path('setroute/<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),

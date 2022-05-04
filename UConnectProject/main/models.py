@@ -34,9 +34,7 @@ class Car(models.Model):
     url = models.URLField(blank=True)
 
 class Route(models.Model):
-    lat1 = models.FloatField()
-    long1 = models.FloatField()
-    lat2 = models.FloatField()
-    long2 = models.FloatField()
+    IdOwner = models.IntegerField(null=True)
+    route = models.JSONField(null=True, blank=True)
     def data(self):
-        return [self.lat1,self.long1,self.lat2,self.long2]
+        return [self.route,self.IdOwner]
