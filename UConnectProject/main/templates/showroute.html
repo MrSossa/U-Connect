@@ -169,10 +169,22 @@
     
     <form action="/createRoute" method="POST">
         {% csrf_token %}
-        {{form}}
+
+        <label>PetFriendly:</label>
+        {{form.petfriendly}}
+        <br>
+
+        <label>Description:</label>
+        {{form.description}}
+        <br>
+
+        {{form.route}}
+
         <input type="submit" value="Submit">
     </form>
-    
+    <a href="../">
+        <input type="button" value="Cancel" />
+    </a>
 
 	<footer>
         <div class="row">
