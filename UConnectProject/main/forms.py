@@ -1,14 +1,21 @@
-from cProfile import label
-from socket import fromshare
-from tkinter import Widget
+
+import datetime
+from email.policy import default
+
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 
+
 class routesForms(forms.Form):
-    description = forms.CharField(max_length=300)
-    petfriendly = forms.BooleanField()
+    cur_year = datetime.datetime.today().year
+    year_range = tuple([i for i in range(cur_year - 2, cur_year + 10)])
+
+    description = forms.CharField(max_length=300,min_length=1)
+    startdate = forms.DateField(input_formats=['%Y-%m-%d'], 
+        widget=forms.SelectDateWidget(years=year_range))
+    petfriendly = forms.BooleanField(required=False)
     route = forms.JSONField(widget = forms.HiddenInput())
 
 class UserRegisterForm(UserCreationForm):

@@ -139,7 +139,7 @@
 <body>
     <header class="main-head">
         <nav class="navbar navbar-expand-sm navbar-light" id="navbar">
-            <a class="navbar-brand" href="#" id="logo">
+            <a class="navbar-brand" href="{% url 'home' %}" id="logo">
                 <img class="card-img-top " src="../../media/Logo/uConn.jpeg" alt="Card image cap" id="logoImg">
             </a>
 
@@ -148,24 +148,37 @@
         </button>
 
             <div class="navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
-                    <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="register">Register</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
-                </ul>
+
+                <form class="d-flex" id="authstyle">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a href="{% url 'profile' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Profile </a></li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Logout </a></li> {% else %}
+                        <li class="nav-item"><a href="{% url 'register' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Create Account </a></li>
+                        <li class="nav-item"><a href="{% url 'login' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px; " type="submit" id="header-links">Log In</a></li> {% endif %}
+                    </ul>
+                </form>
             </div>
+
         </nav>
+
+        <div>
+            <div class="container">
+                {% if messages %} {% for message in messages %}
+                <div class="alert alert-{{message.tags}}">{{message}}</div>
+                {% endfor %} {% endif %}
+            </div>
+            {% block content %} {% endblock content %}
+        </div>
+
     </header>
 
-    {% if map %} {{map.html.render|safe}}
+    {% if map %}
+    {{map.html.render|safe}}
     <script>
-        {
-            {
-                map.script.render | safe
-            }
-        }
+        {{map.script.render | safe}}
     </script>
     {% endif %}
 

@@ -42,10 +42,16 @@ def profile(request):
 def myRoutes(request):
     routes = Route.objects.all()
     myroutes = []
+    lastroutes = []
     for i in routes:
-        myroutes.append(i.data())
+        if (i.data()[1] == request.user.username):
+            if (i.data()[5]):
+                myroutes.append(i.data())
+            else:
+                lastroutes.append(i.data())
     context = {
-        'myRoutes': myroutes
+        'myRoutes': myroutes,
+        'lastRoutes': lastroutes
     }
     return render(request, 'myRoutes.html',context=context)
 
@@ -53,14 +59,14 @@ def showmap(request):
     return render(request,'showmap.html')
 
 def createRoute(request):
-    #Se utilize form para preguntar todos los parametros de la ruta (modificar models para adaptar el ingreso de los datos)
-    #Recibir la ruta creada por context
-    #Usar metodo create routa
-    #Route.objects.create(IdOwner=random.randint(0,1000),route=route)
-  
     if request.method == 'POST':
-        Route.objects.create(IdOwner=random.randint(0,1000),route=request.POST["route"])
-    return render(request,'myRoutes.html')
+        date =  ("%4d-%02d-%02d" % (int(request.POST['startdate_year']),int(request.POST['startdate_month']),int(request.POST["startdate_day"])) )
+        Route.objects.create(Owner=request.user.username,
+                            route=request.POST["route"],
+                            startdate=date,
+                            description=request.POST["description"],
+                            petfriendly = request.POST["petfriendly"] if ("petfriendly" in request.POST) else False)
+    return redirect('../myRoutes')
 
 def showroute(request,lat1,long1,lat2,long2):
     figure = folium.Figure()

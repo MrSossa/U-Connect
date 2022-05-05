@@ -26,7 +26,13 @@ class Car(models.Model):
     url = models.URLField(blank=True)
 
 class Route(models.Model):
-    IdOwner = models.IntegerField(null=True)
+    Owner = models.CharField(default="",max_length=50)
     route = models.JSONField(null=True, blank=True)
+    startdate = models.DateField(default=timezone.now)
+    description = models.CharField(max_length=500,default="")
+    petfriendly = models.BooleanField(default=False)
+    state = models.BooleanField(default=True)
     def data(self):
-        return [self.route,self.IdOwner]
+        return [self.route,self.Owner,self.startdate,self.description,self.petfriendly,self.state]
+    def changeState(self):
+        self.state = not self.state
