@@ -59,8 +59,9 @@ def createRoute(request):
     #Route.objects.create(IdOwner=random.randint(0,1000),route=route)
   
     if request.method == 'POST':
-        print(request.POST)
-    return render(request,'showmap.html')
+        Route.objects.create(IdOwner=random.randint(0,1000),route=request.POST["route"])
+    return render(request,'myRoutes.html')
+
 def showroute(request,lat1,long1,lat2,long2):
     figure = folium.Figure()
     lat1,long1,lat2,long2=float(lat1),float(long1),float(lat2),float(long2)
