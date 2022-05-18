@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block header%}
+<title>myRoute</title>
+{{map.header.render|safe}}
+
+{% endblock header %}
+
+{% block content %}
+
+    {% if map %}
+    {{map.html.render|safe}}
+    
+    <script>
+        {{map.script.render|safe}}
+    </script>
+    {% endif %}
+
+<form action="update/{{id}}" method="POST">
+    {% csrf_token %}
+
+    <label>PetFriendly:</label>
+    {{form.petfriendly}}
+    <br>
+
+    <label>Description:</label>
+    {{form.description}}
+    <br>
+
+    <label>Date:</label>
+    {{form.startdate}}
+    <br>
+
+    <label>Time:</label>
+    {{form.startTime}}
+    <br>
+
+    {{form.route}}
+
+    <input type="submit" value="Update">
+</form>
+
+<a href="./">
+    <input type="button" value="Cancel" />
+</a>
+<br>
+<a href="delete/{{id}}" >
+    <input type="button" value="Delete"/>
+</a>
+
+{% endblock content %}

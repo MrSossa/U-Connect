@@ -22,3 +22,15 @@ def get_route(pickup_lon, pickup_lat, dropoff_lon, dropoff_lat):
           }
 
     return out
+
+def getRouteFigure(route):
+    figure = folium.Figure(width=100,height=100)
+    m = folium.Map(location=[(route['start_point'][0]),
+                            (route['start_point'][1])], 
+                            zoom_start=15)
+    m.add_to(figure)
+    folium.PolyLine(route['route'],weight=8,color='blue',opacity=0.6).add_to(m)
+    folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
+    folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
+    figure.render()
+    return figure

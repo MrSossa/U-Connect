@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <style>
@@ -138,8 +137,12 @@
             bottom: 0px;
             width: 100%;
         }
+        table th{
+            border:1px solid black;
+            padding: 5px;
+        }
     </style>
-
+    {% block header %} {% endblock header %}
 </head>
 
 <body>
@@ -177,50 +180,13 @@
                 <div class="alert alert-{{message.tags}}">{{message}}</div>
                 {% endfor %} {% endif %}
             </div>
-            {% block content %} {% endblock content %}
+            <!-- When content block was here, map didn't load-->
         </div>
 
     </header>
-    {% if user.is_authenticated %}
-    <div class="main">
-        <section>
-            <div id="setNshow">
-                <div class="container-md p-5" id="containerSetNshow">
-                    <div class="row pt-5">
-                        <div>
-                            <h3 class="text-center pb-2 pt-2 h2">
-                                Add Routes and visualize them
-                            </h3>
-                        </div>
-                        <div class="col-sm">
-                            <div class="card w-100 card-border mb-5 text-center" style="width: 18rem;">
-                                <img class="card-img-top " src="/media/Cards/route.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <div class="card-description">
-                                        <h5 class="card-title">Add Route</h5>
-                                        <p class="card-text">Click two points on the map to aggregate a route.</p>
-                                    </div>
-                                    <a href="./setroute" target="" class="btn btn-primary" id="cardButton">Click Here</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm">
-                            <div class="card w-100 card-border mb-5 text-center" style="width: 18rem;">
-                                <img class="card-img-top" src="/media/Cards/map.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <div class="card-description">
-                                        <h5 class="card-title">Show Map</h5>
-                                        <p class="card-text">Visualize the added routes on the map.</p>
-                                    </div>
-                                    <a href="showroutes" target="_blank" class="btn btn-primary" id="cardButton">Click Here</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>{% endif %}
+    
+    <!-- moved here-->
+    {% block content %} {% endblock content %}
 
     <footer class="pie">
         <div class="row">

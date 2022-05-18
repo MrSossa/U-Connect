@@ -40,50 +40,79 @@ def profile(request):
     return render(request, 'profile.html')
 
 def myRoutes(request):
-    routes = Route.objects.all()
+    routes = Route.objects.filter(Owner = request.user.username)
     myroutes = []
     lastroutes = []
     for i in routes:
-        if (i.data()[1] == request.user.username):
-            if (i.data()[5]):
-                myroutes.append(i.data())
-            else:
-                lastroutes.append(i.data())
+        if (i.data()[5]):
+            myroutes.append(i.data())
+        else:
+            lastroutes.append(i.data())
     context = {
         'myRoutes': myroutes,
         'lastRoutes': lastroutes
     }
     return render(request, 'myRoutes.html',context=context)
 
+def myRoute(request,id):
+    if (request.method == 'GET'):
+        route = Route.objects.get(id = id)
+        time =  ("%02d:%02d" % (route.startTime.hour,route.startTime.minute)) 
+        f = routesForms({'route':route.route,
+                        'description':route.description,
+                        'petfriendly':route.petfriendly,
+                        'startdate':route.startdate,
+                        'startTime':time}
+                        )
+        figure = getroute.getRouteFigure(json.loads(route.route))
+        context = {
+            'form':f,
+            'id':route.id,
+            'map':figure,
+        }
+        return render(request, 'myRoute.html',context=context)
+    return render(request, 'myRoute.html')
+
+def deleteRoute(request,id):
+    route = Route.objects.get(id = id)
+    route.delete()
+    return redirect('myRoutes')
+
 def showmap(request):
     return render(request,'showmap.html')
 
+def updateRoute(request,id):
+    
+    if request.method == 'POST':
+        route = Route.objects.filter(id = id)
+        route.update(Owner=request.user.username,
+                            route=request.POST["route"].replace('\\\"',"\""),
+                            startdate=request.POST["startdate"],
+                            startTime=request.POST["startTime"],
+                            description=request.POST["description"],
+                            petfriendly = True if ("petfriendly" in request.POST) else False)
+        
+    return redirect('../../myRoutes')
+
 def createRoute(request):
     if request.method == 'POST':
-        date =  ("%4d-%02d-%02d" % (int(request.POST['startdate_year']),int(request.POST['startdate_month']),int(request.POST["startdate_day"])) )
+        print(type(json.loads(request.POST["route"])))
         Route.objects.create(Owner=request.user.username,
                             route=request.POST["route"],
-                            startdate=date,
+                            startdate=request.POST["startdate"],
+                            startTime=request.POST["startTime"],
                             description=request.POST["description"],
-                            petfriendly = request.POST["petfriendly"] if ("petfriendly" in request.POST) else False)
+                            petfriendly = True if ("petfriendly" in request.POST) else False)
+        
     return redirect('../myRoutes')
 
 def showroute(request,lat1,long1,lat2,long2):
-    figure = folium.Figure()
+    #figure = folium.Figure()
     lat1,long1,lat2,long2=float(lat1),float(long1),float(lat2),float(long2)
 
     route=getroute.get_route(long1,lat1,long2,lat2)
 
-    #Route.objects.create(IdOwner=random.randint(0,1000),route=json.dumps(route))
-
-    m = folium.Map(location=[(route['start_point'][0]),
-                                 (route['start_point'][1])], 
-                       zoom_start=15)
-    m.add_to(figure)
-    folium.PolyLine(route['route'],weight=8,color='blue',opacity=0.6).add_to(m)
-    folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
-    folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
-    figure.render()
+    figure = getroute.getRouteFigure(route=route)
     f = routesForms({'route':json.dumps(route)})
     context={
         'map':figure,
@@ -100,15 +129,12 @@ def generatePopPup(route):
 
 def showRoutes(request):
     routes = Route.objects.all()
-    #routes = [[6.2202708,-75.6181945],[6.2427035,-75.5831564],[6.275552,-75.6013728],[6.2750283,-75.5419109],[6.2327582,-75.5542372],[6.2076047,-75.5814088]]
     figure = folium.Figure()
     m = folium.Map(location=[6.1997147,-75.5814568], zoom_start=15)
 
     aux = 0
     for i in routes:
         r = i.data()
-        #lat1,long1,lat2,long2=float(r[0]),float(r[1]),float(r[2]),float(r[3])
-        #route=getroute.get_route(long1,lat1,long2,lat2)
 
         route = json.loads(r[0])
         
