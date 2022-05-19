@@ -12,6 +12,7 @@ urlpatterns = [
     path('myRoutes/<int:id>',views.myRoute,name='myRoute'),
     path('myRoutes/delete/<int:id>',views.deleteRoute,name='deleteRoute'),
     path('myRoutes/update/<int:id>',views.updateRoute,name='updateRoute'),
+    path('myRoutes/participants/<int:id>',views.participants,name='participants'),
     path('login/',auth_view.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/',auth_view.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/',register, name='register'),

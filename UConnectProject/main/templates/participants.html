@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block header%}
+<title>Participants</title>
+{% endblock header %}
+
+
+{% block content %}
+    <h3>Waiting</h3>
+    <table>
+        <tr>
+            <th> Nombre </th>
+            <th> Reputacion </th>
+            <th>    </th>
+        </tr>
+        {% for i in waiting %}
+            <tr>
+                <th>{{ i.1 }}</th>
+                <th>{{ i.2 }}</th>
+                                
+                <th> <form action="" method="POST">
+                    {% csrf_token %}
+                        <button name="accept" value="{{ i.0 }}">Accept</button>
+                    </form>
+                </th>
+                <th> <form action="" method="POST">
+                    {% csrf_token %}
+                        <button name="deny" value="{{ i.0 }}">Deny</button>
+                    </form>
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Accepted</h3>
+    <table>
+        <tr>
+            <th> Nombre </th>
+            <th> Reputacion </th>
+            <th>    </th>
+        </tr>
+        {% for i in accepted %}
+            <tr>
+                <th>{{ i.1 }}</th>
+                <th>{{ i.2 }}</th>
+                                
+                <th> <form action="" method="POST">
+                    {% csrf_token %}
+                        <button name="delete" value="{{ i.0 }}">Delete</button>
+                    </form>
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}

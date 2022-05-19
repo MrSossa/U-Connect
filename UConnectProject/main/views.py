@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.http import HttpResponse
 from main.models import Route
 from django.contrib.auth.forms import UserCreationForm
@@ -77,6 +77,36 @@ def deleteRoute(request,id):
     route = Route.objects.get(id = id)
     route.delete()
     return redirect('myRoutes')
+
+def participants(request,id):
+    route = Route.objects.filter(id = id)
+    users = json.loads(route[0].participants)
+    context = {}
+    pList = []
+    if (request.method == 'POST'):
+        if ("deny" in request.POST):
+            users["waiting"] = [user for user in users["waiting"] if user!=request.POST["deny"]]
+            route.update(participants = json.dumps(users))
+        elif ("accept" in request.POST):
+            users["waiting"] = [user for user in users["waiting"] if user!=request.POST["accept"]]
+            users["accepted"].append(request.POST["accept"])
+            route.update(participants = json.dumps(users))
+        elif ("delete" in request.POST):
+            users["accepted"] = [user for user in users["accepted"] if user!=request.POST["delete"]]
+            route.update(participants = json.dumps(users))
+    
+    for participant in users["waiting"]:
+        p = get_object_or_404(User,username=participant)
+        pList.append([participant,"nombre","reputacion"])
+    context["waiting"] = pList
+
+    pList = []
+    for participant in users["accepted"]:
+        p = get_object_or_404(User,username=participant)
+        pList.append([participant,"nombre","reputacion"])
+    context["accepted"] = pList
+    print(context)
+    return render(request, 'participants.html',context=context)
 
 def showmap(request):
     return render(request,'showmap.html')
