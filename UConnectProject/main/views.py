@@ -14,6 +14,7 @@ from django.views.generic import CreateView
 import folium
 import json
 import random
+import datetime
 from .forms import routesForms
 from . import getroute
 
@@ -48,13 +49,25 @@ def myRoutes(request):
     routes = Route.objects.filter(Owner = request.user.username)
     myroutes = []
     lastroutes = []
+    currRoutes = []
+    waitingRoutes = []
     for i in routes:
-        if (i.data()[5]):
-            myroutes.append(i.data())
-        else:
+        r = json.loads(i.participants)
+        if (i.startdate < datetime.date.today()):
             lastroutes.append(i.data())
+        elif (i.Owner == request.user.username):
+            if (i.data()[5]):
+                myroutes.append(i.data())
+            else:
+                lastroutes.append(i.data())
+        elif (request.user.username in r["waiting"]):
+            waitingRoutes.append(i.data())
+        elif (request.user.username in r["accepted"]):
+            currRoutes.append(i.data())
     context = {
         'myRoutes': myroutes,
+        'currRoutes': currRoutes,
+        'waitingRoutes': waitingRoutes,
         'lastRoutes': lastroutes
     }
     return render(request, 'myRoutes.html',context=context)
@@ -76,12 +89,31 @@ def myRoute(request,id):
             'map':figure,
         }
         return render(request, 'myRoute.html',context=context)
-    return render(request, 'myRoute.html')
+    
 
 def deleteRoute(request,id):
     route = Route.objects.get(id = id)
     route.delete()
     return redirect('myRoutes')
+
+def infoRoute(request,id):
+    route = Route.objects.filter(id = id)
+    context = {}
+    if (request.method == 'GET'):
+        figure = getroute.getRouteFigure(json.loads(route[0].route))
+        context["map"] = figure
+        context["startdate"] = route[0].startdate
+        context["startTime"] = route[0].startTime
+        context["description"] = route[0].description
+        context["petfriendly"] = route[0].petfriendly
+        return render(request, 'infoRoute.html',context=context)
+    elif (request.method == 'POST'):
+        users = json.loads(route[0].participants)
+        users["waiting"] = [user for user in users["waiting"] if user!=request.user.username]
+        users["accepted"] = [user for user in users["accepted"] if user!=request.user.username]
+        route.update(participants = json.dumps(users))
+        return redirect('../')
+    
 
 def participants(request,id):
     route = Route.objects.filter(id = id)
@@ -102,16 +134,29 @@ def participants(request,id):
     
     for participant in users["waiting"]:
         p = get_object_or_404(User,username=participant)
-        pList.append([participant,"nombre","reputacion"])
+        stars = random.randint(0,5)
+        pList.append([participant,p.first_name,p.last_name,("★"*stars)+("☆"*(5-stars))])
     context["waiting"] = pList
 
     pList = []
     for participant in users["accepted"]:
         p = get_object_or_404(User,username=participant)
-        pList.append([participant,"nombre","reputacion"])
+        stars = random.randint(0,5)
+        pList.append([participant,p.first_name,p.last_name,("★"*stars)+("☆"*(5-stars))])
     context["accepted"] = pList
     print(context)
     return render(request, 'participants.html',context=context)
+
+def reviews(request,id):
+    route = Route.objects.filter(id = id)
+    users = json.loads(route[0].participants)
+    context = {}
+    pList = []
+    for participant in users["accepted"]:
+        p = get_object_or_404(User,username=participant)
+        pList.append([participant,p.first_name,p.last_name])
+    context["Participants"] = pList
+    return render(request, 'reviews.html',context=context)
 
 def showmap(request):
     return render(request,'showmap.html')
@@ -154,10 +199,23 @@ def showroute(request,lat1,long1,lat2,long2):
   
     return render(request,'showroute.html',context)
 
+def joinRoute(request,id):
+    route = Route.objects.filter(id = id)
+    users = json.loads(route[0].participants)
+    users["waiting"].append(request.user.username)
+    route.update(participants = json.dumps(users))
+    return redirect('../myRoutes')
+
 def generatePopPup(route):
-    iframe = folium.IFrame("Usuario: "+str(route[1])
-           +"<br> Reputacion: "+("★"*random.randint(0,5))
-           +"<br> <a href=\"https://www.google.com/\">Entrar</a>")
+    p = get_object_or_404(User,username=route.Owner)
+    stars = random.randint(0,5)
+    iframe = ("Name: "+p.first_name+" "+p.last_name
+           +"<br> Reputation: "+("★"*stars)+("☆"*(5-stars))
+           +"<br> StartDate: "+str(route.startdate)
+           +"<br> StartTime: "+str(route.startTime)
+           +"<br> PetFriendly: "+str(route.petfriendly)
+           +"<br> Description: "+route.description
+           +"<br> <a href=\"./joinRoute/"+str(route.id)+"\">Join</a>")
     popup = folium.Popup(iframe, min_width=200,max_width=200)
     return popup
 
@@ -172,7 +230,7 @@ def showRoutes(request):
 
         route = json.loads(r[0])
         
-        folium.PolyLine(route['route'],weight=8,color='blue',opacity=0.6,popup=generatePopPup(r)).add_to(m)
+        folium.PolyLine(route['route'],weight=8,color='blue',opacity=0.6,popup=generatePopPup(i)).add_to(m)
         folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
         folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
         aux += 1

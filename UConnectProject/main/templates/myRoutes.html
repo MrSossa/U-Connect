@@ -8,15 +8,20 @@
                 <th> Fecha </th>
                 <th> Descripcion </th>
                 <th>    </th>
+                <th>    </th>
             </tr>
             {% for i in myRoutes %}
             <tr>
                 <th> {{i.2}} </th>
                 <th> {{i.3}} </th>
                 <th> <a href="./{{i.5}}">
-                        <input type="button" value="View" />
+                        <input type="button" value="Config" />
                     </a>
                 </th>
+                <th> <a href="./participants/{{i.5}}">
+                    <input type="button" value="Participants" />
+                </a>
+            </th>
             </tr>
             {% endfor %}
         </table>
@@ -24,12 +29,51 @@
     </div>
 
     <div>
-        <h3>Rutas actuales</h3>
-
+        <h3>Current Routes</h3>
+        <table>
+            <tr>
+                <th> Fecha </th>
+                <th> Descripcion </th>
+                <th>    </th>
+            </tr>
+            {% for i in currRoutes %}
+            <tr>
+                <th> {{i.2}} </th>
+                <th> {{i.3}} </th>
+                <th> <a href="./info/{{i.5}}">
+                        <input type="button" value="Info" />
+                    </a>
+                </th>
+            </th>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 
     <div>
-        <h3>Rutas pasadas</h3>
+        <h3>Waiting Routes</h3>
+        <table>
+            <tr>
+                <th> Fecha </th>
+                <th> Descripcion </th>
+                <th>    </th>
+            </tr>
+            {% for i in waitingRoutes %}
+            <tr>
+                <th> {{i.2}} </th>
+                <th> {{i.3}} </th>
+                <th> <a href="./info/{{i.5}}">
+                        <input type="button" value="Info" />
+                    </a>
+                </th>
+            </th>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div>
+        <h3>Past Routes</h3>
         <table>
             <tr>
                 <th> Fecha </th>
@@ -40,10 +84,9 @@
             <tr>
                 <th> {{i.2}} </th>
                 <th> {{i.3}} </th>
-                <th> <a href="{{i.5}}">
-                        <input type="button" value="View" />
-                    </a>
-                </th>
+                <th> <a href="./reviews/{{i.5}}">
+                    <input type="button" value="Participants" />
+                </a>
             </tr>
             {% endfor %}
         </table>

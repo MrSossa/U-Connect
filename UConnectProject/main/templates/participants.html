@@ -9,8 +9,9 @@
     <h3>Waiting</h3>
     <table>
         <tr>
-            <th> Nombre </th>
-            <th> Reputacion </th>
+            <th> Name </th>
+            <th> LastName </th>
+            <th> Reputation </th>
             <th>    </th>
         </tr>
         {% for i in waiting %}
@@ -35,15 +36,16 @@
     <h3>Accepted</h3>
     <table>
         <tr>
-            <th> Nombre </th>
-            <th> Reputacion </th>
+            <th> Name </th>
+            <th> LastName </th>
+            <th> Reputation </th>
             <th>    </th>
         </tr>
         {% for i in accepted %}
             <tr>
                 <th>{{ i.1 }}</th>
                 <th>{{ i.2 }}</th>
-                                
+                <th>{{ i.3 }}</th>           
                 <th> <form action="" method="POST">
                     {% csrf_token %}
                         <button name="delete" value="{{ i.0 }}">Delete</button>

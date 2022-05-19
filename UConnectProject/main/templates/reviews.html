@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load static %} 
+
+{% block header%}
+<title>Participants</title>
+{% endblock header %}
+
+
+{% block content %}
+    <h3>Participants</h3>
+    <table>
+        <tr>
+            <th> Nombre </th>
+            <th> Apellido </th>
+            <th> Review  </th>
+        </tr>
+        {% for i in Participants %}
+            <tr>
+                <th>{{ i.1 }}</th>
+                <th>{{ i.2 }}</th>
+                                
+                <th> 
+                    <input type="number" id="review" name="review" min="0" max="5" value="0">
+                </th>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content %}

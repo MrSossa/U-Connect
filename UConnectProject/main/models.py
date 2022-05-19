@@ -2,6 +2,7 @@ from pickletools import long1
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from traitlets import default
 
 # Create your models here.
 
@@ -27,6 +28,6 @@ class Route(models.Model):
     description = models.CharField(max_length=500,default="")
     petfriendly = models.BooleanField(default=False)
     state = models.BooleanField(default=True)
-    participants = models.JSONField(null=True, blank=True)
+    participants = models.JSONField(blank=True,default="{\"waiting\":[],\"accepted\":[]}")
     def data(self):
         return [self.route,self.Owner,self.startdate,self.description,self.petfriendly,self.id]
