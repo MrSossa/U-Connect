@@ -5,7 +5,7 @@ from email.policy import default
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django import forms
+from django.views.generic import CreateView
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -26,7 +26,8 @@ class routesForms(forms.Form):
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-
+    first_name = forms.CharField()
+    last_name = forms.CharField()
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['first_name','last_name','username', 'email', 'password1', 'password2',] 

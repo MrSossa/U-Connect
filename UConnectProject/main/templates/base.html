@@ -14,6 +14,12 @@
             border: 0px;
             box-sizing: border-box;
         }
+
+        body{
+            position: relative;
+            min-height: 100vh;
+            padding-bottom: 5rem;
+        }
         
         #logo {
             margin-left: 20px;
@@ -72,14 +78,7 @@
             color: white!important;
         }
         
-        footer>.row {
-            --bs-gutter-x: 0!important;
-            padding: 8px 0px!important;
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            background-color: rgb(79, 136, 182);
-        }
+        
         
         footer span {
             width: max-content!important;
@@ -132,11 +131,20 @@
         }
         
         .pie {
-            position: fixed;
-            left: 0px;
+            position: absolute;
             bottom: 0px;
             width: 100%;
         }
+
+        footer>.row {
+            --bs-gutter-x: 0!important;
+            padding: 8px 0px!important;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgb(79, 136, 182);
+        }
+
         table th{
             border:1px solid black;
             padding: 5px;
@@ -165,7 +173,9 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a href="{% url 'profile' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Profile </a></li>
-                        <li class="nav-item"><a href="{% url 'logout' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Logout </a></li> {% else %}
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Logout </a></li> 
+                        <li class="nav-item"><a href="{% url 'myRoutes' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> myRoutes </a></li>
+                        {% else %}
                         <li class="nav-item"><a href="{% url 'register' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px;" type="submit" id="header-links"> Create Account </a></li>
                         <li class="nav-item"><a href="{% url 'login' %}" class="btn" style="color:  white; background-color: #585ad0c0; border-radius: 5px; " type="submit" id="header-links">Log In</a></li> {% endif %}
                     </ul>
