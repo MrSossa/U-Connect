@@ -9,9 +9,9 @@
 {% block content%}
 
     {% if map %}
-    <div id="test"></div>
-    
     {{map.html.render|safe}}
+    
+    
     <script>
         {{ map.script.render |safe }}
     </script>

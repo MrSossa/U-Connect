@@ -8,14 +8,6 @@
 
 {% block content %}
 
-    {% if map %}
-    {{map.html.render|safe}}
-    
-    <script>
-        {{map.script.render|safe}}
-    </script>
-    {% endif %}
-
 <form action="update/{{id}}" method="POST">
     {% csrf_token %}
 
@@ -39,7 +31,6 @@
 
     <input type="submit" value="Update">
 </form>
-
 <a href="./">
     <input type="button" value="Cancel" />
 </a>
@@ -47,5 +38,14 @@
 <a href="delete/{{id}}" >
     <input type="button" value="Delete"/>
 </a>
+
+
+    {% if map %}
+    {{map.html.render|safe}}
+    
+    <script>
+        {{map.script.render|safe}}
+    </script>
+    {% endif %}
 
 {% endblock content %}
