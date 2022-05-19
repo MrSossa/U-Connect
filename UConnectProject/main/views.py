@@ -6,6 +6,11 @@ from .forms import UserRegisterForm
 from django.contrib import messages
 from .models import *
 
+from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+
 import folium
 import json
 import random
@@ -81,8 +86,7 @@ def deleteRoute(request,id):
 def showmap(request):
     return render(request,'showmap.html')
 
-def updateRoute(request,id):
-    
+def updateRoute(request,id):    
     if request.method == 'POST':
         route = Route.objects.filter(id = id)
         route.update(Owner=request.user.username,
@@ -146,3 +150,4 @@ def showRoutes(request):
     figure.render()
     context={'map':figure}
     return render(request,'showAllRoutes.html',context)
+

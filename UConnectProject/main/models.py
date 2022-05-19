@@ -7,16 +7,10 @@ from django.utils import timezone
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     def __str__(self):
         return f'Perfil de {self.user.username}'
+    
 
-class Register(models.Model):
-    name = models.CharField(max_length=100)
-    lastName = models.CharField(max_length=100)
-    email = models.CharField(max_length=250)
-    image = models.ImageField(upload_to='User/images/')
-    url = models.URLField(blank=True)
 
 class Car(models.Model):
     Brand = models.CharField(max_length=100)
