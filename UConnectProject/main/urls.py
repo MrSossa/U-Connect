@@ -1,6 +1,6 @@
 from re import template
 from django.urls import URLPattern, path
-from main.views import showmap,showroute,showRoutes,createRoute,about,register,profile #reg
+from main.views import showmap,showroute,showRoutes,createRoute,about,register,profile,unsafe
 from django.conf.urls.static import static 
 from django.conf import settings
 from django.contrib.auth import views as auth_view
@@ -20,6 +20,7 @@ urlpatterns = [
     path('logout/',auth_view.LogoutView.as_view(template_name='logout.html'), name='logout'),
     path('register/',register, name='register'),
     path('profile/',profile, name='profile'),
+    path('unsafe/',unsafe, name='unsafe'),
     path('about/',about, name='about'),
     path('setroute/<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
     path('setroute',showmap,name='showmap'),

@@ -26,6 +26,9 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
+def unsafe(request):
+    return render(request, 'Unsafe.html')
+
 def login(request):
     return render(request,'login.html')
 

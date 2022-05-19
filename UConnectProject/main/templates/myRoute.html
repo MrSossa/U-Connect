@@ -1,45 +1,67 @@
 {% extends 'base.html' %} {% load static %} 
+{% block header %}
 
-{% block header%}
-<title>myRoute</title>
-{{map.header.render|safe}}
+<style>
 
+.inline{
+    padding: 0;
+    margin-left: 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+}
+
+input[type=text]:focus {
+  border: 3px solid #555;
+  background-color: lightblue;
+}
+
+</style>
 {% endblock header %}
 
 {% block content %}
-
-<form action="update/{{id}}" method="POST">
+<h1>Please Fill the blank spaces</h1>
+<br>
+<div class="formu">
+<form action="update/{{id}}" method="POST" class="inline">
     {% csrf_token %}
 
-    <label>PetFriendly:</label>
+    
+    <label >PetFriendly</label>
     {{form.petfriendly}}
-    <br>
+    
 
-    <label>Description:</label>
+    <label class="inline" placeholder="Your name..">Description:</label>
     {{form.description}}
-    <br>
+    
 
-    <label>Date:</label>
+    <label class="inline">Date:</label>
     {{form.startdate}}
-    <br>
+    
 
-    <label>Time:</label>
+    <label class="inline">Time:</label>
     {{form.startTime}}
-    <br>
+    
 
     {{form.route}}
+    <input type="submit" value="Update" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black;">
 
-    <input type="submit" value="Update">
+    <a href="./">
+        <input type="button" value="Go Back" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;"/>
+    </a>
+    <a href="delete/{{id}}" >
+        <input type="button" value="DeleteRoute" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;"/>
+    </a>
+    
 </form>
-<a href="./">
-    <input type="button" value="Cancel" />
-</a>
-<br>
-<a href="delete/{{id}}" >
-    <input type="button" value="Delete"/>
-</a>
+<br><br>
+</div>
 
 
+   {{map.header.render|safe}}
+   
     {% if map %}
     {{map.html.render|safe}}
     
@@ -48,4 +70,6 @@
     </script>
     {% endif %}
 
+
 {% endblock content %}
+

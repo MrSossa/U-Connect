@@ -2,7 +2,7 @@ from pickletools import long1
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from traitlets import default
+
 
 # Create your models here.
 

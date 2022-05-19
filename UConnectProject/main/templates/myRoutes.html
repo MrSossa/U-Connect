@@ -1,36 +1,87 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} {% load static %} 
 
-    
-    <div>
-        <h3>Mis rutas</h3>
-        <table>
-            <tr>
-                <th> Fecha </th>
-                <th> Descripcion </th>
-                <th>    </th>
-                <th>    </th>
-            </tr>
-            {% for i in myRoutes %}
-            <tr>
-                <th> {{i.2}} </th>
-                <th> {{i.3}} </th>
-                <th> <a href="./{{i.5}}">
-                        <input type="button" value="Config" />
-                    </a>
-                </th>
-                <th> <a href="./participants/{{i.5}}">
-                    <input type="button" value="Participants" />
-                </a>
-            </th>
-            </tr>
-            {% endfor %}
-        </table>
-        
+
+{% block header %}
+
+<style>
+th{
+    border-bottom: 1px solid #ddd !important;
+}
+
+tr:hover {background-color: rgba(114, 97, 211, 0.521);}
+tr:nth-child(even) {background-color: #5756be63;}
+
+.table1{
+    display: inline-block;
+    width: 370px;
+    padding: 5px 5px;
+    margin: 20px;
+    text-align: left;
+   
+}
+.table2{
+    display: inline-block;
+    width: 220px;
+    padding: 5px 5px;
+    margin: 20px;
+    text-align: left;
+}
+.table3{
+    display: inline-block;
+    width: 220px;
+    padding: 5px 5px;
+    margin: 20px;
+    text-align: left;
+}
+.table4{
+    display: inline-block;
+    width: 300px;
+    padding: 5px 5px;
+    margin: 20px;
+    text-align: left;
+}
+
+
+</style>
+
+{% endblock header %}
+
+{% block content %}
+
+    <div class="table1">
+        <h3>My Routes</h3>
+            <table>
+                <thead>
+                    <tr class="">
+                        <th > Fecha </th>
+                        <th > Descripcion </th>
+                        <th >    </th>
+                        <th >    </th>
+                    </tr>
+                </thead>
+                {% for i in myRoutes %}
+                <tbody>
+                    <tr>
+                        <th class=""> {{i.2}} </th>
+                        <th class=""> {{i.3}} </th>
+                        <th class=""> <a href="./{{i.5}}">
+                                <input type="button" value="Config" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                            </a>
+                        </th>
+                        <th class=""> 
+                            <a href="./participants/{{i.5}}">
+                                <input type="button" value="Participants" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                            </a>
+                        </th>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
     </div>
 
-    <div>
+    <div class="table2">
         <h3>Current Routes</h3>
-        <table>
+        <table >
             <tr>
                 <th> Fecha </th>
                 <th> Descripcion </th>
@@ -50,9 +101,9 @@
         </table>
     </div>
 
-    <div>
+    <div class="table3">
         <h3>Waiting Routes</h3>
-        <table>
+        <table  >
             <tr>
                 <th> Fecha </th>
                 <th> Descripcion </th>
@@ -72,13 +123,13 @@
         </table>
     </div>
 
-    <div>
+    <div class="table4">
         <h3>Past Routes</h3>
-        <table>
+        <table >
             <tr>
                 <th> Fecha </th>
                 <th> Descripcion </th>
-                <th> Estado </th>
+                <th> </th>
             </tr>
             {% for i in lastRoutes %}
             <tr>
