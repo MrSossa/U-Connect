@@ -46,7 +46,7 @@ def profile(request):
     return render(request, 'profile.html')
 
 def myRoutes(request):
-    routes = Route.objects.filter(Owner = request.user.username)
+    routes = Route.objects.filter()
     myroutes = []
     lastroutes = []
     currRoutes = []
@@ -176,12 +176,14 @@ def updateRoute(request,id):
 def createRoute(request):
     if request.method == 'POST':
         print(type(json.loads(request.POST["route"])))
+        color = "#%06x" % random.randint(0, 0xFFFFFF)
         Route.objects.create(Owner=request.user.username,
                             route=request.POST["route"],
                             startdate=request.POST["startdate"],
                             startTime=request.POST["startTime"],
                             description=request.POST["description"],
-                            petfriendly = True if ("petfriendly" in request.POST) else False)
+                            petfriendly = True if ("petfriendly" in request.POST) else False,
+                            color = color)
         
     return redirect('../myRoutes')
 
@@ -230,7 +232,7 @@ def showRoutes(request):
 
         route = json.loads(r[0])
         
-        folium.PolyLine(route['route'],weight=8,color='blue',opacity=0.6,popup=generatePopPup(i)).add_to(m)
+        folium.PolyLine(route['route'],weight=8,color=i.color,opacity=1,popup=generatePopPup(i)).add_to(m)
         folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
         folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
         aux += 1

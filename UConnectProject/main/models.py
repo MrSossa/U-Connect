@@ -29,5 +29,6 @@ class Route(models.Model):
     petfriendly = models.BooleanField(default=False)
     state = models.BooleanField(default=True)
     participants = models.JSONField(blank=True,default="{\"waiting\":[],\"accepted\":[]}")
+    color = models.CharField(default="#000000", max_length=10)
     def data(self):
         return [self.route,self.Owner,self.startdate,self.description,self.petfriendly,self.id]
