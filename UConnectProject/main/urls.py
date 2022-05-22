@@ -23,7 +23,7 @@ urlpatterns = [
     path('unsafe/',unsafe, name='unsafe'),
     path('about/',about, name='about'),
     path('setroute/<str:lat1>,<str:long1>,<str:lat2>,<str:long2>',showroute,name='showroute'),
-    path('setroute',showmap,name='showmap'),
+    path('setroute/',showmap,name='showmap'),
     path('showroutes',showRoutes,name='showroutes'),
     path('createRoute',createRoute,name='createRoute')
 ]

@@ -2,25 +2,40 @@
 
 {% block header%}
 <title>myRoute</title>
+
+<style>
+    .inpu{
+        display: inline-block;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .buto{
+        display: inline-block;
+        margin-left: 600px;
+        
+    }
+
+</style>
 {{map.header.render|safe}}
 
 {% endblock header %}
 
 {% block content %}
 
-StartDate = {{startdate}} <br>
-StartTime = {{startTime}} <br>
-Description = {{description}} <br>
-Petfriendly = {{petfriendly}} <br>
+<div class="inpu">StartDate = {{startdate}} </div>
+<div class="inpu">StartTime = {{startTime}} </div>
+<div class="inpu">Description = {{description}}</div>
+<div class="inpu">Petfriendly = {{petfriendly}} </div>
 
 <a href="../">
-    <input type="button" value="Cancel" />
+    <input type="button" value="Cancel" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;"/>
 </a>
-<br>
 
-<form action="" method="POST">
+<form action="" method="POST" >
     {% csrf_token %}
-    <input type="submit" value="Delete">
+    <input type="submit" value="Delete" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;">
 </form>
 
 
