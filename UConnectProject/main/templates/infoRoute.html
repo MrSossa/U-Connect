@@ -13,8 +13,6 @@
 
     .buto{
         display: inline-block;
-        margin-left: 600px;
-        
     }
 
 </style>
@@ -33,11 +31,12 @@
     <input type="button" value="Cancel" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;"/>
 </a>
 
-<form action="" method="POST" >
-    {% csrf_token %}
-    <input type="submit" value="Delete" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;">
-</form>
-
+<div class="buto">
+    <form action="" method="POST" >
+        {% csrf_token %}
+        <input type="submit" value="Delete" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black; margin-left: 15px;">
+    </form>
+</div>
 
 
     {% if map %}
