@@ -1,15 +1,36 @@
 {% extends 'base.html' %} {% load static %} 
 {% block header %}
+    <title>SetRoute</title>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
 
+    <style>
+        #map_map {
+            position: absolute;
+            top: 110px;
+            bottom: 66px;
+            right: 0px;
+            width: 80%;
+        }
+    </style>
 <style>
 
 .inline{
     padding: 0;
     margin-left: 20px;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(29, 29, 29);
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: rgb(192, 192, 192);
     
 }
 
@@ -18,37 +39,39 @@ input[type=text]:focus {
   background-color: lightblue;
 }
 
+#formu {
+    width: 20%;
+}
 </style>
 {% endblock header %}
 
 {% block content %}
-<h1>Please Fill the blank spaces</h1>
-<br>
+<h4>Please Fill the blank spaces</h1>
 <div class="formu">
     <form action="/createRoute" method="POST">
     {% csrf_token %}
+    
+    
+    <label class="inline">PetFriendly {{form.petfriendly}}</label>
+    
+    <br>
 
+    <label class="inline" placeholder="Your name..">Description: {{form.description}}</label>
     
-    <label >PetFriendly</label>
-    {{form.petfriendly}}
-    
+    <br>
 
-    <label class="inline" placeholder="Your name..">Description:</label>
-    {{form.description}}
+    <label class="inline">Date: {{form.startdate}}</label>
     
+    <br>
 
-    <label class="inline">Date:</label>
-    {{form.startdate}}
+    <label class="inline">Time: {{form.startTime}}</label>
     
-
-    <label class="inline">Time:</label>
-    {{form.startTime}}
-    
+    <br>
     {{form.route}}
 
-        <input type="submit" value="Submit" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black;">
+    <input class="inline" type="submit" value="Submit" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black;">
     
-    <a href="../">
+    <a href="../" class="inline">
         <input type="button" value="Cancel" style="background-color:rgba(110, 110, 180, 0.692); border-radius:4px; color: black;"/>
     </a>
 </form>
@@ -56,8 +79,6 @@ input[type=text]:focus {
 <br><br>
 </div>
 
-
-   {{map.header.render|safe}}
    
     {% if map %}
     {{map.html.render|safe}}

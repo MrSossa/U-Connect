@@ -236,11 +236,16 @@ def showRoutes(request):
         route = json.loads(r[0])
         
         folium.PolyLine(route['route'],weight=8,color=i.color,opacity=1,popup=generatePopPup(i)).add_to(m)
-        folium.Marker(location=route['start_point'],icon=folium.Icon(icon='play', color='green')).add_to(m)
-        folium.Marker(location=route['end_point'],icon=folium.Icon(icon='stop', color='red')).add_to(m)
+        folium.Marker(location=route['start_point'],icon=folium.Icon(color='green')).add_to(m)
+        folium.Marker(location=route['end_point'],icon=folium.Icon(color='red')).add_to(m)
         aux += 1
     m.add_to(figure)
+    m._id = "map"
     figure.render()
+    #print(figure.html.render())
+    #print(figure.script.render())
+    #print("=================================")
+    #print(figure.header.render())
     context={'map':figure}
     return render(request,'showAllRoutes.html',context)
 
