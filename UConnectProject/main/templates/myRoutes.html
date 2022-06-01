@@ -4,12 +4,26 @@
 {% block header %}
 
 <style>
-th{
-    border-bottom: 1px solid #ddd !important;
+
+
+.a {background-color: #ffae3563;}
+tr:hover {background-color: rgba(31, 221, 180, 0.521);}
+tbody{background-color: rgba(87, 84, 231, 0.336);}
+
+.tablita{
+    table-layout:fixed;    
 }
 
-tr:hover {background-color: rgba(114, 97, 211, 0.521);}
-tr:nth-child(even) {background-color: #5756be63;}
+thead th:nth-child(3) {
+  width: 25%;
+}
+thead th:nth-child(4) {
+  width: 25%;
+}
+
+th, td {
+  padding: 10px;
+}
 
 .table1{
     display: inline-block;
@@ -35,7 +49,7 @@ tr:nth-child(even) {background-color: #5756be63;}
 }
 .table4{
     display: inline-block;
-    width: 300px;
+    width: 350px;
     padding: 5px 5px;
     margin: 20px;
     text-align: left;
@@ -50,9 +64,9 @@ tr:nth-child(even) {background-color: #5756be63;}
 
     <div class="table1">
         <h3>My Routes</h3>
-            <table>
+            <table class="tablita">
                 <thead>
-                    <tr class="">
+                    <tr class="a">
                         <th > Fecha </th>
                         <th > Descripcion </th>
                         <th >    </th>
@@ -63,24 +77,22 @@ tr:nth-child(even) {background-color: #5756be63;}
                 {% for i in myRoutes %}
                 <tbody>
                     <tr>
-                        <th class=""> {{i.2}} </th>
-                        <th class=""> {{i.3}} </th>
-                        <th class=""> <a href="./{{i.5}}">
+                        <td class=""> {{i.2}} </td>
+                        <td class=""> {{i.3}} </td>
+                        <td class=""> <a href="./{{i.5}}">
                                 <input type="button" value="Config" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                             </a>
-                        </th>
-                        <th class=""> 
+                        </td>
+                        <td class=""> 
                             <a href="./participants/{{i.5}}">
                                 <input type="button" value="Participants" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                             </a>
-                        </th>
-                        <th class=""> 
-                          
+                        </td>
+                        <td class=""> 
                             <a href="./chat/{{i.5}}/{{user.username}}">
                                 <input type="button" value="Chat" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                             </a>
-                            
-                        </th>
+                        </td>
                     </tr>
                 </tbody>
                 {% endfor %}
@@ -89,72 +101,80 @@ tr:nth-child(even) {background-color: #5756be63;}
 
     <div class="table2">
         <h3>Current Routes</h3>
-        <table >
-            <tr>
-                <th> Fecha </th>
-                <th> Descripcion </th>
-                <th>    </th>
-                <th>    </th>
-            </tr>
+        <table class="tablita">
+            <thead>
+                <tr class="a">
+                    <th> Fecha </th>
+                    <th> Descripcion </th>
+                    <th>    </th>
+                    <th>    </th>
+                </tr>
+            </thead>
             {% for i in currRoutes %}
+            <tbody>
             <tr>
-                <th> {{i.2}} </th>
-                <th> {{i.3}} </th>
-                <th> <a href="./info/{{i.5}}">
+                <td> {{i.2}} </td>
+                <td> {{i.3}} </td>
+                <td> <a href="./info/{{i.5}}">
                         <input type="button" value="Info" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                     </a>
-                </th>
-            </th>
-            <th class=""> 
-                          
-                <a href="./chat/{{i.5}}/{{user.username}}">
-                    <input type="button" value="Chat" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
-                </a>
-                
-            </th>
+                </td>
+                <td><a href="./chat/{{i.5}}/{{user.username}}">
+                        <input type="button" value="Chat" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                    </a>
+                </td>
             </tr>
+            </tbody>
             {% endfor %}
         </table>
     </div>
 
     <div class="table3">
         <h3>Waiting Routes</h3>
-        <table  >
-            <tr>
+        <table class="tablita">
+            <thead>
+            <tr class="a">
                 <th> Fecha </th>
                 <th> Descripcion </th>
                 <th>    </th>
             </tr>
+            </thead>
             {% for i in waitingRoutes %}
+            <tbody>
             <tr>
-                <th> {{i.2}} </th>
-                <th> {{i.3}} </th>
-                <th> <a href="./info/{{i.5}}">
-                        <input type="button" value="Info" />
+                <td> {{i.2}} </td>
+                <td> {{i.3}} </td>
+                <td> <a href="./info/{{i.5}}">
+                        <input type="button" value="Info" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                     </a>
-                </th>
-            </th>
+                </td>
             </tr>
+            </tbody>
             {% endfor %}
         </table>
     </div>
 
     <div class="table4">
         <h3>Past Routes</h3>
-        <table >
-            <tr>
+        <table class="tablita">
+            <thead>
+            <tr class="a">
                 <th> Fecha </th>
                 <th> Descripcion </th>
                 <th> </th>
             </tr>
+            </thead>
             {% for i in lastRoutes %}
+            <tbody>
             <tr>
-                <th> {{i.2}} </th>
-                <th> {{i.3}} </th>
-                <th> <a href="./reviews/{{i.5}}">
-                    <input type="button" value="Participants" />
-                </a>
+                <td> {{i.2}} </td>
+                <td> {{i.3}} </td>
+                <td> <a href="./reviews/{{i.5}}">
+                    <input type="button" value="Participants" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                </a></td>
             </tr>
+            </thead>
+            </tbody>
             {% endfor %}
         </table>
     </div>
