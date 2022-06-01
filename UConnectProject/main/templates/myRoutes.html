@@ -57,6 +57,7 @@ tr:nth-child(even) {background-color: #5756be63;}
                         <th > Descripcion </th>
                         <th >    </th>
                         <th >    </th>
+                        <th >    </th>
                     </tr>
                 </thead>
                 {% for i in myRoutes %}
@@ -73,6 +74,13 @@ tr:nth-child(even) {background-color: #5756be63;}
                                 <input type="button" value="Participants" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
                             </a>
                         </th>
+                        <th class=""> 
+                          
+                            <a href="./chat/{{i.5}}/{{user.username}}">
+                                <input type="button" value="Chat" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                            </a>
+                            
+                        </th>
                     </tr>
                 </tbody>
                 {% endfor %}
@@ -86,6 +94,7 @@ tr:nth-child(even) {background-color: #5756be63;}
                 <th> Fecha </th>
                 <th> Descripcion </th>
                 <th>    </th>
+                <th>    </th>
             </tr>
             {% for i in currRoutes %}
             <tr>
@@ -95,6 +104,13 @@ tr:nth-child(even) {background-color: #5756be63;}
                         <input type="button" value="Info" />
                     </a>
                 </th>
+            </th>
+            <th class=""> 
+                          
+                <a href="./chat/{{i.5}}/{{user.username}}">
+                    <input type="button" value="Chat" style="background-color: rgba(110, 84, 184, 0.479); border-radius: 5px;"/>
+                </a>
+                
             </th>
             </tr>
             {% endfor %}

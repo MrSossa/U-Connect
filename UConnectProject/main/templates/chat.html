@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<style>
+    .center{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+</style>
+
+<div class = "center"> 
+    <iframe src="https://chat-uconnect-frontend.vercel.app/chat/{{id}}/{{username}}/password" width="1000px" height="450px" style="border:.5px solid black;"></iframe>
+</div>
+
+{% endblock content %}

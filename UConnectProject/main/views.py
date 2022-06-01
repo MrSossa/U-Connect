@@ -32,6 +32,13 @@ def unsafe(request):
 def login(request):
     return render(request,'login.html')
 
+def chat(request,id,username):
+    context = {
+        'id':id,
+        'username':username
+    }
+    return render(request, 'chat.html',context=context)
+
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
